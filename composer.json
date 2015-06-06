@@ -1,0 +1,36 @@
+{
+    "name": "cwbit/cakephp-sluggable",
+    "description" : "Plugin for CakePHP 3.x that enables automatic, configurable slugging of database fields",
+    "type" : "cakephp-plugin",
+    "keywords": ["cakephp", "plugin", "sluggable", "slug"],
+    "homepage": "https://github.com/cwbit/cakephp-sluggable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chris Brescia",
+            "homepage": "https://github.com/cwbit/",
+            "role": "Author"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "cakephp/cakephp": "~3"
+    },
+    "support": {
+        "source": "https://github.com/cwbit/cakephp-sluggable"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sluggable\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sluggable\\Test\\": "tests",
+            "Cake\\Test\\": "vendor/cakephp/cakephp/tests"
+        }
+    },
+    "extra": {
+        "installer-name": "Sluggable"
+    }
+}
