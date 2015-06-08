@@ -63,7 +63,7 @@ Tell the autoloader where to find your namespace in your `composer.json` file
     "autoload": {
         "psr-4": {
            (..)
-            "EmailQueue\\": "./plugins/EmailQueue/src"
+            "Sluggable\\": "./plugins/Sluggable/src"
         }
     },
     (..)
