@@ -32,7 +32,7 @@ Just add the `Sluggable.Sluggable` behaviour to any model whose field(s) you nee
 This plugin is on Packagist which means it can be easily installed with Composer.
 
 ```
-composer require cwbit/cakephp-suggable
+composer require cwbit/cakephp-sluggable
 ```
 Then simply load the plugin normally in your `config/bootstrap.php` file
 
