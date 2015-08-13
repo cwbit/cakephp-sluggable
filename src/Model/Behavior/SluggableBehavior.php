@@ -6,8 +6,7 @@ use Cake\Event\Event;
 use Cake\ORM\Behavior;
 use Cake\ORM\Entity;
 use Cake\ORM\Query;
-use Cake\Utility\Inflector;
-use Cake\Utility\Text;
+use Sluggable\Utility\Slug;
 
 /**
  * @package default
@@ -42,9 +41,7 @@ class SluggableBehavior extends Behavior
             return $entity->get($config['field']);                  # return existing
         endif;
 
-        $value = Text::insert($config['pattern'], json_decode(json_encode($entity->jsonSerialize()), true));
-        $value = Inflector::slug($value, $config['replacement']);   # slug it
-        $value = strtolower($value);                                # convert to lowercase
+        $value = Slug::generate($config['pattern'], $entity, $config['replacement']);
 
         return $value;                                              # return the slug
     }

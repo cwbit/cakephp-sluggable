@@ -74,7 +74,7 @@ Then you need to issue the following command on the commandline
 ```
 If you are unable to get composer autoloading to work, add `'autoload' => true` line in your `bootstrap.php` `Plugin::load(..)` command (see loading section)
 
-## Usage
+## Slug Behavior
 
 The sluggable behavior is extremely easy to implement, simply add it, like any other behavior, to your `Table`
 
@@ -193,6 +193,83 @@ class PostsTable extends Table
 	}
 }
 ```
+
+
+## Slug Utility
+
+The Sluggable Plugin adds a Utility class `Slug` that can be called statically. This is the function used by the Behavior to actually generate the slug.
+
+It is capable of handling a string, array, or entity in conjunction with a simple string or `Text::insert`-friendly pattern.
+
+To use the Utility, simply add the following to your class header
+
+```php 
+	use Sluggable\Utility\Slug;
+```
+
+The Utility provides the following function
+
+```php
+ /**
+     * Turns a string (and optionally a dynamic, data-injected string) into a slugged value
+     * @param $pattern string a simple string (e.g. 'slug me') 
+     * 						  or Text::insert-friendly string (e.g. ':id-:name')
+     * @param $data mixed an Array or Entity of data to Text::insert inject into $pattern
+     * @param $replacement string the character to replace non-slug-friendly characters with (default '-')
+     * @return string the slugged string
+     */
+    Slug::generate($pattern, $data = [], $replacement = '-');
+```
+
+#### Examples
+
+```php
+
+	use Sluggable\Utility\Slug;
+
+	echo Slug::generate('slug me');
+	# 'slug-me'
+
+	echo Slug::generate('SLUG(!@#(ME');
+    # 'slug-me'
+
+    echo Slug::generate('a really long slug that i just made');
+    # 'a-really-long-slug-that-i-just-made'
+```
+
+To Text::insert via an `array`...
+
+```php
+	$data = [
+		'id' => 123,
+		'name' => 'abc',
+		'description' => 'Hello, World!',
+	];
+
+	$slug = Slug::generate(':id-:name', $data);
+	# '123-abc'
+
+	$slug = Slug::generate(':description', $data);
+	# 'hello-world'
+
+```
+
+To Text::insert via `Entity` properties...
+
+```php
+	$data = new Entity([
+		'id' => 123,
+		'name' => 'abc',
+		'description' => 'Hello, World!',
+	]);
+
+	$slug = Slug::generate(':id-:name', $data);
+	# '123-abc'
+
+	$slug = Slug::generate(':description', $data);
+	# 'hello-world'
+```
+
 # Contributing
 
 If you'd like to contribute, please submit a PR with your changes! 
